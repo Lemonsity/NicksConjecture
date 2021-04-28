@@ -9,7 +9,7 @@ primes = [] # all prime number up to end
 primesSet = set()
 
 for i in range(1, 51):
-    filename = "primes{}.txt".format(i)
+    filename = "Primes/primes{}.txt".format(i)
     file = open(filename, "r")
     for line in file:
         primes.extend(list(map(int, line.split())))
@@ -22,7 +22,7 @@ if (start % 2 == 0): # start from odd
 for i in range(start, end + 1, 2): # for every odd number
     
     if (i % 100000 == 1): # sense of progress
-        print(i)
+        print(i, "%.2f%%" % ((i - start)/(end - start) * 100))
     
     check = False # assume the number does not satisfy conjecture
     for p in primes: # iterate through all possible p from smallest to biggest

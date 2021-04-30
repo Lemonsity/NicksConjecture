@@ -1,14 +1,13 @@
 import time
 startT = time.time()
 
-
 start = int(input("Input starting number: "))
 end = int(input("Input ending number: "))
 
 primes = [] # all prime number up to end
 primesSet = set()
 
-for i in range(1, 51):
+for i in range(1, 51): # read prime files
     filename = "Primes/primes{}.txt".format(i)
     file = open(filename, "r")
     for line in file:

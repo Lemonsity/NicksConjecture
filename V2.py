@@ -1,8 +1,26 @@
+import sys
+import getopt
 import time
+
 startT = time.time()
 
-start = int(input("Input starting number: "))
-end = int(input("Input ending number: "))
+variant = -1
+start = -1
+end = -1
+
+try:
+    opts, args = getopt.getopt(sys.argv[1:], "v:s:e:", ["variant=", "start=", "end="])
+except getopt.GetoptError as err:
+    print(err)
+for opt, arg in opts:
+    if (opt in ("-v", "--variant")):
+        variant = int(arg)
+    elif (opt in ("-s", "--start")):
+        start = int(arg)
+    elif (opt in ("-e", "--end")):
+        end = int(arg)
+    else:
+        print("Invalid option-argument pair: {}, {}".format(opt, arg))
 
 primes = [] # all prime number up to end
 primesSet = set()
@@ -15,6 +33,10 @@ for i in range(1, 51): # read prime files
         primesSet.update(set(map(int, line.split())))
     if (primes[-1] >= end):
         break
+
+if (variant == 2):
+    primes.pop(0)
+    primesSet.remove(2)
 
 if (start % 2 == 0): # start from odd
     start += 1

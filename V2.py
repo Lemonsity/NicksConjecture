@@ -4,16 +4,35 @@ import time
 
 startT = time.time()
 
-variant = -1
-start = -1
-end = -1
+variant = 1
+start = 7
+end = 7
+
+helpMessage = \
+"""V2.py [OPTION]
+
+    -v, --variant[=VARIANT]     The variant testing, 
+                                1 for including 2 as prime
+                                2 for exlucding 2 as prime
+
+    -s, --start[=START]         The starting value
+    -e, --end[=END]             The ending value
+    -h, --help                  Display this help message"""
+
+if (len(sys.argv) == 1): # no arguments
+    print(helpMessage)
+    sys.exit(1)
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "v:s:e:", ["variant=", "start=", "end="])
+    opts, args = getopt.getopt(sys.argv[1:], "v:s:e:h", ["variant=", "start=", "end=", "help"])
 except getopt.GetoptError as err:
     print(err)
+    sys.exit(2)
 for opt, arg in opts:
-    if (opt in ("-v", "--variant")):
+    if (opt in ("-h", "--help")):
+        print(helpMessage)
+        sys.exit(1)
+    elif (opt in ("-v", "--variant")):
         variant = int(arg)
     elif (opt in ("-s", "--start")):
         start = int(arg)

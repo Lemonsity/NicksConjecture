@@ -9,15 +9,15 @@ for i in range(3, int(N ** 0.5) + 1, 2):
         print("Sieving:", i, "%.2f%%" % (i / int(N ** 0.5)))
     if sieve[i]:
         sieve[i * i : : 2 * i] = [False] * ((N - 1 - i * i) // (2 * i) + 1)
-result = [0] + [2] + [i for i in range(3, N, 2) if sieve[i]]
+result = [2] + [i for i in range(3, N, 2) if sieve[i]]
 
 print(result[-1])
 
 file = open("Primes/primes1.txt", "r")
-for i in range(50000001, len(result), 1):
+for i in range(50000000, len(result), 1):
     if (i % 100000 == 0):
         print("File output:", i, "%.2f%%" % ((i - 50000000) / (len(result) - 50000000)))
-    if ((i % 1000000) == 1):
+    if ((i % 1000000) == 0):
         file.close()
         filename = "Primes/primes{}.txt".format(i // 1000000 + 1)
         file = open(filename, "w")

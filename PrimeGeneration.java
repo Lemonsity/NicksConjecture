@@ -16,10 +16,12 @@ import java.util.Arrays;
 public class PrimeGeneration {
     static Integer[] primes = null; // This array is used for sieve, contains primes up to sqrt(N)
     
-    static final int NUMBER_SEGMENTS = 1;
-    static final long SEGMENT_LENGTH = 100;
+    static final int NUMBER_SEGMENTS = 5;
+    static final long SEGMENT_LENGTH = 20;
     static final int SEGMENT_ARRAY_LENGTH = (int) (SEGMENT_LENGTH >> 4) + 1;
 
+    // if a bit is 1, then it is Composite number
+    // if a bit is 0, then it is Prime number
     static byte[] segment = new byte[SEGMENT_ARRAY_LENGTH];
     public static void main(String[] args) throws IOException{
         primesArrayGeneration();
@@ -34,24 +36,30 @@ public class PrimeGeneration {
         
         Arrays.fill(segment, (byte) 0);
 
-        long begin = segmentNum * SEGMENT_LENGTH;
-        long end = (segmentNum + 1) * SEGMENT_LENGTH - 1;
-        long endSqrt = (long) Math.sqrt(end) + 1;
+        long begin = segmentNum * SEGMENT_LENGTH; // starting number
+        long end = (segmentNum + 1) * SEGMENT_LENGTH - 1; // ending number (both inclusion)
+        long endSqrt = (long) Math.sqrt(end) + 1; // Biggest number to check up to
 
         int prime = -1;
         int primeIndex = 1;
         while (prime < endSqrt && primeIndex < primes.length) {
+            // get next prime
             prime = primes[primeIndex];
             primeIndex++;
-            long moddedIndex = prime - (begin % prime);
-            moddedIndex += (moddedIndex % 2 == 0) ? prime : 0; // if starting index is even, skip over, and start at an odd index
-            if (begin + moddedIndex == prime) {
-                moddedIndex += 2 * prime;
+
+            // index relative to begin
+            // This starts at the first multiple of prime that is >= to begin
+            long relativeIndex = prime - (begin % prime); 
+
+            relativeIndex += (relativeIndex % 2 == 0) ? prime : 0; // if index is even, skip over, and start at an odd index
+            
+            if (begin + relativeIndex == prime) { // if the index represent a prime itself, then we DO NOT mark it as composite 
+                relativeIndex += 2 * prime;
             }
-            while (moddedIndex < SEGMENT_LENGTH) {
-                System.out.println(moddedIndex);
-                segment[(int) (moddedIndex >> 4)] |= 1 << ((moddedIndex >> 1) & 7); // mark as not prime
-                moddedIndex += 2 * prime;
+
+            while (relativeIndex < SEGMENT_LENGTH) {
+                segment[(int) (relativeIndex >> 4)] |= 1 << ((relativeIndex >> 1) & 7); // mark as not prime
+                relativeIndex += 2 * prime;
             }
         }
     }
@@ -68,7 +76,7 @@ public class PrimeGeneration {
             }
             bw = new BufferedWriter(new FileWriter(file));
 
-            long i = begin;
+            long i = begin + ((begin % 2 == 0) ? 1 : 0);
 
             if (segmentNum == 0) {
                 bw.write(2 + "");
@@ -79,7 +87,7 @@ public class PrimeGeneration {
             for (; i <= end; i += 2) {
                 long relativeIndex = i - begin;
                 if ((segment[(int) (relativeIndex >> 4)] & (1 << ((relativeIndex >> 1) & 7))) == 0) {
-                    bw.write(String.valueOf(i));
+                    bw.write(i + "");
                     bw.newLine();
                 }
             }

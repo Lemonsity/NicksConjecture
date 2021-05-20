@@ -18,7 +18,7 @@ public class PrimeGeneration {
     
     static final int NUMBER_SEGMENTS = 100; // number of segments
     static final long SEGMENT_LENGTH = 1000000000; // size of each segment, depend on computer, 1 billion is stretching the upper limit
-    
+
     static final int SEGMENT_ARRAY_LENGTH = (int) (SEGMENT_LENGTH >> 4) + 1;
 
     // if a bit is 1, then it is Composite number
@@ -33,20 +33,27 @@ public class PrimeGeneration {
     }
 
     public static void sieve(int segmentNum) {
-        System.out.println("Sieving");
-        
         Arrays.fill(segment, (byte) 0);
 
         long begin = segmentNum * SEGMENT_LENGTH; // starting number
         long end = (segmentNum + 1) * SEGMENT_LENGTH - 1; // ending number (both inclusion)
         long endSqrt = (long) Math.sqrt(end) + 1; // Biggest number to check up to
 
+        System.out.printf("Sieving segment: %d\n", segmentNum);
+        System.out.printf("Upper limit of prime to check: %d\n", endSqrt);
+        int upperboundIndex = Arrays.binarySearch(primes, (int) endSqrt);
+        upperboundIndex *= (upperboundIndex < 0) ? -1 : 1;
+        
         int prime = -1;
         int primeIndex = 1;
         while (prime < endSqrt && primeIndex < primes.length) {
             // get next prime
             prime = primes[primeIndex];
             primeIndex++;
+
+            if (primeIndex % 1000 == 0) { // rough progress
+                System.out.printf("Segment %d progress: %.2f%% (estimate)\n", segmentNum, (double)(100 *  primeIndex) / upperboundIndex);
+            }
 
             // index relative to begin
             // This starts at the first multiple of prime that is >= to begin
@@ -66,6 +73,9 @@ public class PrimeGeneration {
     }
 
     public static void writeSegment(int segmentNum) throws IOException {
+
+        System.out.printf("Writing segment: %d\n", segmentNum);
+
         BufferedWriter bw = null;
         try {
             long begin = segmentNum * SEGMENT_LENGTH;
@@ -86,6 +96,11 @@ public class PrimeGeneration {
             }
 
             for (; i <= end; i += 2) {
+
+                if (i % 50000000 == 1) {
+                    System.out.printf("Segment %d writing progress: %.2f%%\n", segmentNum, (double)(100 * (i - begin)) / SEGMENT_LENGTH);
+                }
+
                 long relativeIndex = i - begin;
                 if ((segment[(int) (relativeIndex >> 4)] & (1 << ((relativeIndex >> 1) & 7))) == 0) { // if bit is 0, then it is prime
                     bw.write(i + "");

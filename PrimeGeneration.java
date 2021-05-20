@@ -16,8 +16,9 @@ import java.util.Arrays;
 public class PrimeGeneration {
     static Integer[] primes = null; // This array is used for sieve, contains primes up to sqrt(N)
     
-    static final int NUMBER_SEGMENTS = 5;
-    static final long SEGMENT_LENGTH = 20;
+    static final int NUMBER_SEGMENTS = 100; // number of segments
+    static final long SEGMENT_LENGTH = 1000000000; // size of each segment, depend on computer, 1 billion is stretching the upper limit
+    
     static final int SEGMENT_ARRAY_LENGTH = (int) (SEGMENT_LENGTH >> 4) + 1;
 
     // if a bit is 1, then it is Composite number
@@ -76,9 +77,9 @@ public class PrimeGeneration {
             }
             bw = new BufferedWriter(new FileWriter(file));
 
-            long i = begin + ((begin % 2 == 0) ? 1 : 0);
+            long i = begin + ((begin % 2 == 0) ? 1 : 0); // only odd number can be prime
 
-            if (segmentNum == 0) {
+            if (segmentNum == 0) { // special case
                 bw.write(2 + "");
                 bw.newLine();
                 i = 3;
@@ -86,7 +87,7 @@ public class PrimeGeneration {
 
             for (; i <= end; i += 2) {
                 long relativeIndex = i - begin;
-                if ((segment[(int) (relativeIndex >> 4)] & (1 << ((relativeIndex >> 1) & 7))) == 0) {
+                if ((segment[(int) (relativeIndex >> 4)] & (1 << ((relativeIndex >> 1) & 7))) == 0) { // if bit is 0, then it is prime
                     bw.write(i + "");
                     bw.newLine();
                 }

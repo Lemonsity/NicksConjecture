@@ -1,5 +1,5 @@
 # Nick's Conjecture
-The conjecture is thought up by Nick Cheng from Univerity of Toronto Scarborough Campus (UTSC). This repository contains program that are designed to confirm if numbers below a certain threshold satisfies the conjecture before any further investigation 
+The conjecture is thought up by Nick Cheng from Univerity of Toronto Scarborough Campus (UTSC). This repository contains program that are designed to confirm if numbers below a certain threshold satisfies the conjecture before any further investigation.
 More details will be added in the future
 
 ## Instruction

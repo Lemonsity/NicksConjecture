@@ -18,5 +18,5 @@ py V2.py <args>
 - `PrimeGeneration.py`: Original prime generating algorithm
 - `PrimeGeneration.java`: Prime generating algorithm allows for up to multi-billion
 ## Special Thanks:
-- [The first fifty million primes](https://primes.utm.edu/lists/small/millions/): Proving the `primeX.txt` files used in this program
+- [The first fifty million primes](https://primes.utm.edu/lists/small/millions/): Providing the `primeX.txt` files used in this program
 - [Prime I.T.](http://compoasso.free.fr/primelistweb/page/prime/accueil_en.php): Sieve algorithm that allows for generating primes up to multi-billions

@@ -4,7 +4,9 @@ More details will be added in the future
 
 ## Preparation
 **Warning: ~50GB of free space is needed**
+
 Compile and execute `PrimeGeneration.java` in the root folder
+
 100 `BigPrime[X].txt` files will be generated within `Primes/` directory
 
 ## Instruction
@@ -25,7 +27,9 @@ py V2.py <args>
 
 ## Output and Other
 `[X] failed conjecture ` will be printed if a number had failed
+
 `All numbers between [start] and [end] satisfy our conjecture` will be printed if all number between interval satisfies the conjecture
+
 Progress will be printed throughout (Noticable when checking large internval)
 **Could take a long time load prime**, be patient, grab a cup of coffee, get some sleep
 ## Special Thanks:

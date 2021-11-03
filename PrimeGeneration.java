@@ -25,11 +25,16 @@ public class PrimeGeneration {
     // if a bit is 0, then it is Prime number
     static byte[] segment = new byte[SEGMENT_ARRAY_LENGTH];
     public static void main(String[] args) throws IOException{
+
+        long startTime = System.currentTimeMillis();
+
         primesArrayGeneration();
         for (int i = 0; i < NUMBER_SEGMENTS; i++) {
             sieve(i);
             writeSegment(i);
         }
+
+        System.out.println("Execution time in ms: " + (System.currentTimeMillis() - startTime));
     }
 
     public static void sieve(int segmentNum) {

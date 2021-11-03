@@ -44,14 +44,24 @@ for opt, arg in opts:
 primes = [] # all prime number up to end
 primesSet = set()
 
-for i in range(1, 51): # read prime files
-    filename = "Primes/primes{}.txt".format(i)
-    file = open(filename, "r")
+# for i in range(1, 51): # read prime files
+#     filename = "Primes/primes{}.txt".format(i)
+#     file = open(filename, "r")
+#     for line in file:
+#         primes.extend(list(map(int, line.split())))
+#         primesSet.update(set(map(int, line.split())))
+#     if (primes[-1] >= end):
+#         break
+
+for i in range(0, 100):
+    filename = "Primes/BigPrimes{}.txt".format(i);
+    file = open(filename, "r");
     for line in file:
-        primes.extend(list(map(int, line.split())))
-        primesSet.update(set(map(int, line.split())))
+        prime = int(line)
+        primes.append(prime);
+        primesSet.add(prime);
     if (primes[-1] >= end):
-        break
+        break;
 
 if (variant == 2):
     primes.pop(0)
@@ -59,22 +69,39 @@ if (variant == 2):
 
 if (start % 2 == 0): # start from odd
     start += 1
-for i in range(start, end + 1, 2): # for every odd number
-    
-    if (i % 100000 == 1): # sense of progress
-        print(i, "%.2f%%" % ((i - start)/(end - start) * 100))
-    
-    check = False # assume the number does not satisfy conjecture
-    for p in primes: # iterate through all possible p from smallest to biggest
-        if (2 * p > i): # 2p breached the odd number, cannot possibly find a (p, q) pair now
-            break
-        if ((i - 2 * p) in primesSet):
-            check = True
-            break
-    if (not check): # Found counterexample
-        print(i, "failed our conjecture")
+
+i = start;
+doublePrimeIndex = 0;
+while (i < end + 1):
+    doublePrime = primes[doublePrimeIndex]; 
+    if (i - 2 * doublePrime in primesSet): # found trio
+        doublePrimeIndex = -1; # reset prime index to beginning
+        i += 2; # continue to the next odd number
+        if (i % 100000 == 1): # sense of progress
+            print(i, "%.2f%%" % ((i - start)/(end - start) * 100))
+    doublePrimeIndex += 1 # move onto next prime
+    if (2 * doublePrime > i): # impossible to find trio
+        print(i, "failed conjecture");
         break
-else: # did not find counterexample
+else:
     print("All numbers between {} and {} satisfy our conjecture".format(start, end))
+
+# for i in range(start, end + 1, 2): # for every odd number
+    
+#     if (i % 100000 == 1): # sense of progress
+#         print(i, "%.2f%%" % ((i - start)/(end - start) * 100))
+    
+#     check = False # assume the number does not satisfy conjecture
+#     for p in primes: # iterate through all possible p from smallest to biggest
+#         if (2 * p > i): # 2p breached the odd number, cannot possibly find a (p, q) pair now
+#             break
+#         if ((i - 2 * p) in primesSet):
+#             check = True
+#             break
+#     if (not check): # Found counterexample
+#         print(i, "failed our conjecture")
+#         break
+# else: # did not find counterexample
+#     print("All numbers between {} and {} satisfy our conjecture".format(start, end))
 
 print("The program finished in {} seconds".format(time.time() - startT)) # runtime

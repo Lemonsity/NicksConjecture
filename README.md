@@ -1,5 +1,5 @@
 # Nick's Conjecture
-The conjecture is thought up by Nick Cheng from Univerity of Toronto Scarborough Campus (UTSC), later found out to be same as [Lemoine's conjecture](https://en.wikipedia.org/wiki/Lemoine%27s_conjecture#:~:text=In%20number%20theory%2C%20Lemoine's%20conjecture,number%20and%20an%20even%20semiprime.). This repository contains program that are designed to confirm/disprove the conjecture through brute force.
+The conjecture is thought up by [Nick Cheng](https://www.utsc.utoronto.ca/cms/nick-cheng) from Univerity of Toronto Scarborough Campus (UTSC), later found out to be same as [Lemoine's conjecture](https://en.wikipedia.org/wiki/Lemoine%27s_conjecture#:~:text=In%20number%20theory%2C%20Lemoine's%20conjecture,number%20and%20an%20even%20semiprime.). This repository contains program that are designed to confirm/disprove the conjecture through brute force.
 More details will be added in the future
 
 ## Preparation

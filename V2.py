@@ -53,6 +53,7 @@ primesSet = set()
 #     if (primes[-1] >= end):
 #         break
 
+# TODO need to remove below
 for i in range(0, 100):
     filename = "Primes/BigPrimes{}.txt".format(i);
     file = open(filename, "r");
@@ -73,6 +74,7 @@ if (start % 2 == 0): # start from odd
 i = start;
 doublePrimeIndex = 0;
 while (i < end + 1):
+    # TODO will need to read on demand
     doublePrime = primes[doublePrimeIndex]; 
     if (i - 2 * doublePrime in primesSet): # found trio
         doublePrimeIndex = -1; # reset prime index to beginning

@@ -1,6 +1,5 @@
 from time import process_time
 
-
 N = int(input("Enter the upper limit (not including) of the primes: "))
 
 sieve = [True] * N

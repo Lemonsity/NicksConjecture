@@ -41,6 +41,8 @@ for opt, arg in opts:
     else:
         print("Invalid option-argument pair: {}, {}".format(opt, arg))
 
+        
+# ====== Beginning of Actual Checking ======
 primes = [] # all prime number up to end
 primesSet = set()
 
